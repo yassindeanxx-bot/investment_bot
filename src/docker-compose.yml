@@ -1,0 +1,35 @@
+services:
+  # Service 1: The Brain
+  rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: deep-research-api
+    ports:
+      - "8000:8000"  # Expose 8000 to your laptop
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY} # Pass the key from your .env file
+    volumes:
+      - ./data_pipeline:/app/data_pipeline # OPTIONAL: Persist data outside container
+      - ./chroma_db:/app/chroma_db         # Persist vector DB
+    networks:
+      - rag-network
+
+  # Service 2: The Face
+  rag-client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: deep-research-client
+    ports:
+      - "8501:8501" # Expose 8501 to your laptop
+    environment:
+      - API_URL=http://rag-api:8000 # <--- The Magic Networking!
+    depends_on:
+      - rag-api # Wait for API to start
+    networks:
+      - rag-network
+
+networks:
+  rag-network:
+    driver: bridge

@@ -1,0 +1,40 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+.env/
+
+# Poetry specific files
+.poetry/
+poetry.lock  # Recommended to commit for reproducibility, but can be ignored for libraries.
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Test and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Configuration files
+*.env
+.flaskenv
+
+# uploaded files
+data/
