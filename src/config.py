@@ -6,7 +6,7 @@ from pathlib import Path
 import chromadb
 
 # 1. Load environment variables (optional, but good practice)
-load_dotenv() 
+load_dotenv()
 
 
 # 2. Initialize the Client ONCE

@@ -7,7 +7,7 @@ import os
 API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
 
 st.set_page_config(page_title="Deep Research Client", layout="wide")
-st.title("🌐 Enterprise RAG: CI/CD Edition 🚀")
+st.title("🌐 Enterprise RAG: CI/CD Edition")
 
 # --- Sidebar: Async Upload ---
 with st.sidebar:
