@@ -1,0 +1,33 @@
+name: Deploy to Production
+
+# Trigger: Run this only when we push to the 'main' branch
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 🚀 SSH and Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # 1. Go to the project folder
+            cd investment_bot
+            
+            # 2. Pull the latest code from GitHub
+            git pull origin main
+            
+            # 3. Rebuild and Restart Containers
+            # We use --build to force a rebuild of the Python code
+            docker compose up -d --build
+            
+            # 4. Clean up old images to save disk space (Optional but recommended)
+            docker image prune -f
